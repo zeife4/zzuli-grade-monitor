@@ -151,3 +151,109 @@ WebVPN使用方法详见 WebVPN使用指南 (https://ic.zzuli.edu.cn/2022/0104/c
 ---
 
 > **免责声明**: 此分析仅用于学习研究目的。该系统的版权归郑州轻工业大学信息化管理中心及北京网瑞达科技有限公司所有。
+
+---
+
+## 成绩监控脚本 — 使用指南
+
+### 功能
+
+自动监控教务系统成绩变化，有新成绩时桌面通知 + 微信推送。
+
+```
+扫码登录 → 每5分钟自动检查 → 成绩有变化 → 🔔 通知
+```
+
+### 环境要求
+
+- Python 3.9+
+- Windows / macOS / Linux
+
+### 安装
+
+```bash
+# 1. 克隆项目
+git clone git@github.com:zeife4/zzuli-grade-monitor.git
+cd zzuli-grade-monitor
+
+# 2. 安装依赖
+pip install playwright beautifulsoup4
+
+# 3. 安装浏览器 (Chromium)
+playwright install chromium
+
+# 4. 创建配置文件
+cp config.example.json config.json
+```
+
+### 配置
+
+编辑 `config.json`：
+
+```json
+{
+    "webvpn_base": "https://webvpn.zzuli.edu.cn",
+    "check_interval_seconds": 300,       // 检查间隔(秒), 默认5分钟
+    "max_retry_on_failure": 3,           // 失败重试次数
+    "notify": {
+        "desktop": true,                 // 桌面通知
+        "sound": true,                   // 声音提醒
+        "wechat": {
+            "enabled": false,            // 微信推送 (需注册 Server酱)
+            "sendkey": "SCTxxxxxxxx"     // https://sct.ftqq.com/ 获取
+        }
+    }
+}
+```
+
+#### 微信通知 (可选)
+
+1. 打开 [Server酱](https://sct.ftqq.com/) 扫码登录
+2. 获取 SendKey
+3. 填入 `config.json` 的 `notify.wechat.sendkey`
+4. 将 `enabled` 改为 `true`
+
+### 运行
+
+```bash
+python grade_monitor.py
+```
+
+首次运行会打开浏览器，用手机**微信/钉钉扫码**登录即可，之后脚本会自动监控。
+
+### 运行时命令
+
+| 输入 | 功能 |
+|------|------|
+| `aaa` | 立即检查一次成绩 |
+| `Enter` | 会话过期后重新扫码 |
+
+### 输出文件
+
+| 文件 | 说明 |
+|------|------|
+| `grade_snapshot.json` | 当前成绩快照 |
+| `grade_history.log` | 成绩变化历史 |
+| `change_*.txt` | 每次变化的详细记录 |
+| `monitor.log` | 运行日志 |
+
+### 工作原理
+
+```
+扫码登录 (Playwright 浏览器)
+       │
+       ▼
+  导航到成绩页 (VPN门户 → 教务系统 → 学业成绩 → 检索)
+       │
+       ▼
+  解析成绩表格 (BeautifulSoup)
+       │
+       ▼
+  对比上次快照 ──有变化──▶ 桌面通知 + 微信推送 + 记录历史
+       │                        │
+       │ 无变化                  │
+       ▼                        ▼
+  等待5分钟 ◀────────────── 更新快照
+```
+
+> **免责声明**: 本脚本仅用于学习研究目的。使用者自行承担使用风险。
