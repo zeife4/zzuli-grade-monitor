@@ -171,6 +171,27 @@ WebVPN使用方法详见 WebVPN使用指南 (https://ic.zzuli.edu.cn/2022/0104/c
 
 ### 安装
 
+#### 方式一：下载压缩包（推荐，无需 Git）
+
+1. 打开 [Releases](https://github.com/zeife4/zzuli-grade-monitor/releases) 页面
+2. 下载最新版 `zzuli-grade-monitor-vX.X.zip`
+3. 解压到任意目录，打开终端进入该目录
+4. 执行以下命令：
+
+```bash
+# 安装依赖
+pip install playwright beautifulsoup4
+
+# 安装浏览器 (Chromium)
+playwright install chromium
+
+# 创建配置文件
+copy config.example.json config.json    # Windows
+# cp config.example.json config.json    # macOS / Linux
+```
+
+#### 方式二：Git 克隆
+
 ```bash
 # 1. 克隆项目
 git clone git@github.com:zeife4/zzuli-grade-monitor.git
