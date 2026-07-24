@@ -1,0 +1,194 @@
+#drag-captcha-wrap {
+    position: relative;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.drag-float {
+    display: none;
+    position: absolute;
+    top: -250px;
+    width: 250px;
+    height: 250px;
+    background-color: black;
+}
+
+.drag-float .drag-float__btn {
+    position: absolute;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: rgb(255, 255, 255, 0.5);
+}
+
+.drag-float .drag-float__image {
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+
+.drag-float .drag-float__image img {
+    width: 250px;
+    height: 250px;
+}
+
+.drag-float .drag-float__verify {
+    display: none;
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    top: 0px;
+    left: 0px;
+    background-color: #ffffff;
+    text-align: center;
+    color: black;
+    z-index: 100000;
+}
+
+.drag-hint {
+    text-align: center;
+    line-height: 250px;
+}
+
+.drag-float__failed {
+    display: none;
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    top: 0px;
+    left: 0px;
+    background-color: #ffffff;
+    text-align: center;
+    color: red;
+    z-index: 100000;
+}
+
+.drag-float__failed svg {
+    margin-top: 84px;
+}
+
+.drag-item {
+    position: relative;
+    width: 250px;
+    height: 40px;
+    margin: auto;
+    background-color: #fff;
+}
+
+.drag-bg {
+    width: 250px;
+    height: 40px;
+    position: absolute;
+    background-color: #63ba4d;
+}
+
+.drag-text {
+    position: absolute;
+    width: 250px;
+    height: 40px;
+    text-align: center;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    line-height: 40px;
+    color: #000000;
+}
+
+.drag-btn {
+    width: 40px;
+    height: 38px;
+    position: absolute;
+    border:1px solid #ccc;
+    cursor: move;
+    font-family: "宋体";
+    text-align: center;
+    background-color: #fff;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    color:#666;
+    line-height: 40px;
+}
+
+.drag-captcha-area {
+    width: 280px;
+    padding: 10px 10px;
+    color: #515151;
+}
+
+.drag-refresh-bg {
+    display: none;
+    position: absolute;
+    width: 280px;
+    height: 200px;
+    top: 30px;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+.drag-refresh-bg img {
+    width: 40px;
+    height: 40px;
+    margin-top: 80px;
+    margin-left: 120px;
+}
+
+.drag-slide-message {
+    display: none;
+    position: absolute;
+    width: 280px;
+    height: 20px;
+    top: 30px;
+    background-color: red;
+    text-align: center;
+    color: #ffffff;
+}
+
+.drag-slide-identity {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 100px;
+}
+
+.drag-captcha-footer {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+}
+
+.drag-captcha-slidebar-tip {
+    width: 280px;
+    height: 20px;
+    background-color: #eaeaea;
+    text-align: center;
+    color: rgba(141,142,146,0.87);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+}
+
+.drap-captcha-slidetrigger {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 245px;
+    background-color: #ffffff;
+    color: rgba(141,142,146,0.87);
+    text-align: center;
+    line-height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(141,142,146,0.87);
+}
+
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.succes-message {
+    background-color: #0161f3;
+}

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-cmn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>WEBVPN系统</title>
+    
+    <meta name="keywords"
+          content="WebVPN,WEBVPN,VPN,clientless vpn,网瑞达,北京网瑞达科技有限公司,资源访问控制系统,访问控制,堡垒机,SSLVPN,CASB,认证,成都网瑞达科技有限公司,图书馆认证,图书馆统计,图书馆下载分析,电子资源访问控制,论文下载,访问,图书馆"/>
+    
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="/wengine-vpn/js/css/normalize.css"/>
+    <link rel="stylesheet" href="/wengine-vpn/js/css/login.css?v=20200501"/>
+    <link rel="stylesheet" href="/wengine-vpn/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/wengine-vpn/js/css/quill.snow.css">
+    <link rel="stylesheet" href="/wengine-vpn/js/css/drag.css">
+    <script src="/wengine-vpn/js/js/wechat-font.js"></script>
+    <style>
+        #captcha-wrap{
+            display:none;
+        }
+        #error-message{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="background">
+</div>
+<div class="main">
+    <div class="header">
+        
+            <div class="portal-logo">
+                <img style="height:100%" src="/wengine-vpn/js/image/logo.png"/>
+            </div>
+            <div class="portal-title">
+                <span style="line-height: 48px;">WEBVPN系统</span>
+            </div>
+        
+    </div>
+    <div class="container">
+        <div class="notice-panel">
+            <div class="notice-box">
+                <div class="notice-title">
+                    通知
+                </div>
+                <div class="notice-break-line"></div>
+                <div class="notice-content">
+                    <div class="ql-snow">
+                        <div id="ql-editor" class="ql-editor">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="login-panel">
+            <div class="login-box">
+                
+
+                <div class="login-nav-header">
+                    <div class="login-nav-wrap">
+                        <span class="login-nav-prev"><i class="layui-icon layui-icon-left"></i></span>
+                        <span class="login-nav-next"><i class="layui-icon layui-icon-right"></i></span>
+                        <div class="login-nav-scroll">
+                            <div class="login-nav-nav">
+                                
+                                    
+                                    <div class="login-nav-item" data-type="cas" id="cas">统一认证</div>
+                                    
+                                
+                                    
+                                    <div class="login-nav-item" data-type="local" id="local">账号登录</div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                    <form class="el-form el-form--label-top" id="form">
+                        <input name="auth_type" type="hidden" value="local"/>
+                        
+                        
+                            <div class="login-form-item">
+                                <div class="el-input user-input">
+                                    <input autocomplete="new-password" id="user_name" placeholder="账号"
+                                           type="text" name="username">
+                                </div>
+                            </div>
+                        
+
+                        <div class="login-form-item sms-field" style="display:none;">
+                            <div class="el-input phone-code-input">
+                                <input autocomplete="new-code" placeholder="验证码" type="text" name="sms_code"
+                                       id="phone-code-input" style="flex:1">
+                                <div class="send-sms" id="send-sms">点击发送</div>
+                                <img id="help_mark" class="help-mark sms-wx-field"
+                                     src="/wengine-vpn/js/image/question-mark.png"/>
+                            </div>
+                        </div>
+
+                        
+                            <div class="login-form-item password-field">
+                                <div class="el-input password-input">
+                                    <input autocomplete="new-password" placeholder="密码" type="password" name="password">
+                                </div>
+                            </div>
+                        
+                        
+                        <div class="upper-login-field">
+                            <div class="msg" id="error-message">
+                            </div>
+                            
+                                <div class="remember-field">
+                                    <input type="checkbox" name="remember_cookie" style="vertical-align: middle;"></span>
+                                    <span>下次自动登录</span>
+                                </div>
+                            
+                        </div>
+                        
+
+                        
+
+                        
+                        
+                        <div class="el-button-login" style="margin-bottom:20px;" id="cas_login">
+                            <a id="cas-login" class="link-login" href="/login?cas_login=true"
+                            style="text-decoration:none;color:rgba(0,0,0,0.66);">
+                                CAS统一身份认证登录
+                            </a>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+
+                        
+                            <button type="button" class="el-button-login" style="margin-bottom:20px;" id="login">
+                                <span>登录</span>
+                            </button>
+                        
+                    </form>
+                    <div class="mobile-notice-panel">
+                        <div class="notice-box">
+                            <div class="notice-break-line"></div>
+                            <div class="notice-title">
+                                通知
+                            </div>
+                            <div class="notice-content">
+                                <div class="ql-snow">
+                                    <div id="mobile-ql-editor" class="ql-editor">
+            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wechat_tip" style="display:none;padding:10px">
+                <div style="font-size:16px">1. 请先扫描二维码并关注该服务公众号</div>
+                <img src="/wengine-vpn/js/image/wx.png" style="width:120px;height:120px;margin-left:15px;"/>
+                <div style="font-size:16px">2. 进入公众号点击”用户认证“进行认证</div>
+            </div>
+        </div>
+        <div class="footer" style="text-align: center;margin-top: 20px;margin-bottom: 10px;">
+             <div class="ql-snow">
+                <div id="copyright-ql-editor" class="ql-editor">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="second-login-layer" id="second_login_layer" style="display:none">
+        <div class="layer-form-title">
+            双重登录认证
+        </div>
+        <form id="second_login_form" class="layui-form">
+            <input type="hidden" name="username" autocomplete="off" id="twostep-username">
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="disable_phone" autocomplete="off" disabled class="layui-input"
+                           id="twostep-phone" style="border:none">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">验证码</label>
+                    <div class="layui-input-inline" style="width:160px;">
+                        <input type="text" name="code" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline" style="width:60px;">
+                        <div class="layui-btn layui-btn-mormal" id="send-phone-sms" style="background:#1B9EF3;">获取验证码</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input type="button" id="submit_second_login" class="layui-btn layui-btn-mormal"
+                       style="background:#1B9EF3;float:right" value="继续登录"/>
+            </div>
+
+        </form>
+    </div>
+    <div class="drag-captcha-layer" id="drag-captcha-layer" style="display: none;">
+        <div class="drag-captcha-area">
+            <div class="drag-captcha-title unselectable" unselectable="on" style="height:20px;">请拖动下方滑块完成验证</div>
+            <div class="drag-captcha-center">
+                <div class="drag-captcha-bg" id="drag-captcha-bg">
+                    <img src="">
+                </div>
+                <img class="drag-slide-identity" src="">
+                <div class="drag-refresh-bg">
+                    <img src="/wengine-vpn/js/image/loading.gif">
+                </div>
+                <div class="drag-slide-message">验证失败</div>
+            </div>
+            <div class="drag-captcha-footer">
+                <div class="drag-captcha-slidebar">
+                    <div class="drag-captcha-slidebar-tip unselectable" unselectable="on">请向右拖动滑块</div>
+                </div>
+                <div class="drap-captcha-slidetrigger unselectable" id="drap-captcha-slidetrigger">
+                    >>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/wengine-vpn/js/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/wengine-vpn/js/layer-v3.1.1/layer.js"></script>
+    <script type="text/javascript" src="/wengine-vpn/js/layui/layui.js"></script>
+    <script type="text/javascript" src="/wengine-vpn/js/aes-js.js"></script>
+    <script type="text/javascript">
+        var utf8 = aesjs.utils.utf8;
+        var hex = aesjs.utils.hex
+        var AesCfb = aesjs.ModeOfOperation.cfb
+        var textRightAppend = function (text, mode) {
+            var segmentByteSize = mode === 'utf8' ? 16 : 32
+
+            if (text.length % segmentByteSize === 0) {
+                return text
+            }
+
+            var appendLength = segmentByteSize - text.length % segmentByteSize
+            var i = 0
+            while (i++ < appendLength) {
+                text += '0'
+            }
+            return text
+        }
+
+        var encrypt = function (text, key, iv) {
+            var textLength = text.length
+            text = textRightAppend(text, 'utf8')
+            var keyBytes = utf8.toBytes(key)
+            var ivBytes = utf8.toBytes(iv)
+            var textBytes = utf8.toBytes(text)
+            var aesCfb = new AesCfb(keyBytes, ivBytes, 16)
+            var encryptBytes = aesCfb.encrypt(textBytes)
+            return hex.fromBytes(ivBytes) + hex.fromBytes(encryptBytes).slice(0, textLength * 2)
+        }
+    </script>
+    
+    
+    
+    <script type="text/javascript" src="/wengine-vpn/js/js/drag.js"></script>
+    
+
+    <script type="text/javascript">
+        $('.drag-captcha-layer').on('touchmove',function(event){
+            event.preventDefault();
+        });
+        
+        $("#ql-editor").html("\u003cp\u003e为了方便在校园网外访问内网和图书馆资源，经过信息化管理中心前期部署和测试，开通了WebVPN服务，无需安装客户端和插件，支持电脑和手机直接使用，为了获得更好的体验建议使用Chrome、Firefox、IE11、Edge、Safari等浏览器。\u003cspan style=\"background-color: rgb(0, 0, 0);\"\u003e﻿\u003c/span\u003e\u003c/p\u003e\u003cp\u003e请选择统一认证，使用\u003cstrong style=\"color: rgb(255, 194, 102);\"\u003eCAS统一身份认证登录\u003c/strong\u003e。\u003c/p\u003e\u003cp\u003eWebVPN使用方法详见\u003ca href=\"https://ic.zzuli.edu.cn/2022/0104/c14804a335191/page.htm\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(255, 153, 0);\"\u003eWebVPN使用指南\u003c/a\u003e。\u003c/p\u003e");
+        $("#mobile-ql-editor").html("\u003cp\u003e为了方便在校园网外访问内网和图书馆资源，经过信息化管理中心前期部署和测试，开通了WebVPN服务，无需安装客户端和插件，支持电脑和手机直接使用，为了获得更好的体验建议使用Chrome、Firefox、IE11、Edge、Safari等浏览器。\u003cspan style=\"background-color: rgb(0, 0, 0);\"\u003e﻿\u003c/span\u003e\u003c/p\u003e\u003cp\u003e请选择统一认证，使用\u003cstrong style=\"color: rgb(255, 194, 102);\"\u003eCAS统一身份认证登录\u003c/strong\u003e。\u003c/p\u003e\u003cp\u003eWebVPN使用方法详见\u003ca href=\"https://ic.zzuli.edu.cn/2022/0104/c14804a335191/page.htm\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(255, 153, 0);\"\u003eWebVPN使用指南\u003c/a\u003e。\u003c/p\u003e");
+        $("#copyright-ql-editor").html("@郑州轻工业大学")
+
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+
+        var logoutByOther = ''
+        if (logoutByOther != "") {
+            layer.msg("您的账号已经在其他地点登录，请检查账号密码是否泄漏");
+        }
+
+        var logoutByIpChange = ''
+        if (logoutByIpChange != "") {
+            layer.msg("您的账号IP发生变化，请重新登录");
+        }
+
+        var errorMessage = ''
+        if (errorMessage != "") {
+            layer.msg(errorMessage)
+        }
+
+        var needTwoStep = ''
+        if (needTwoStep != "") {
+            layer.msg("您的账号需要双因子认证！")
+        }
+
+        var notHasError = logoutByOther == "" && errorMessage == "" && logoutByIpChange == "" && needTwoStep == "";
+
+        var sec;
+        var intervalId = 0;
+
+        
+        function initCaptcha() {
+            $(".drag-refresh-bg").css("display", "none")
+            $(".drag-slide-message").css("display", "none")
+            $(".drag-slide-message").text("")
+            $(".drag-slide-message").removeClass("succes-message")
+
+            $(".drag-slide-identity").css("top", 30 + "px")
+            $(".drap-captcha-slidetrigger").css("left", 10 + "px")
+            $(".drag-slide-identity").css("left", 10 + "px")
+            loadCaptcha()
+        }
+
+        
+        function loadCaptcha() {
+            $(".drag-refresh-bg").css("display", "block");
+            $.get("/login/image?_="+Date.now(), function(data){
+                $(".drag-captcha-bg img").attr("src", data.p)
+                $(".drag-slide-identity").attr("src", data.s)
+                $(".drag-slide-identity").css("top", data.h + 30 + "px")
+                $(".drag-refresh-bg").css("display", "none")
+            })
+        }
+        
+
+        $(function () {
+            
+            var logining = false
+            $('#user_name').focus();
+            $('form#form input').on('keyup', function(e){
+                if(e.keyCode == 13 && !logining && $("#drag-captcha-layer").css("display") === "none"){
+                    logining = true
+                    $('#login').trigger('click');
+                }
+            });
+            $('form#form button').on('keydown', function(e){
+                if(e.keyCode == 13){
+                    e.preventDefault();
+                }
+            });
+            $('#login').click(function() {
+                var data = $('#form').serializeArray()
+                $("#error-message").hide()
+                $('#twostep-phone').val("")
+                $('#twostep-phone2').val("")
+                $('#twostep-username').val("")
+                
+                    for (var i in data) {
+                        if (data[i].name === "password") {
+                            data[i].value = encrypt(data[i].value, "wrdvpnisawesome!", "wrdvpnisawesome!")
+                        }
+                    }
+                
+                $.post('/do-login', data, function(res) {
+                    logining = false
+                    if (res.success) {
+                        location.href = res.url
+                    }else{
+                        switch (res.error) {
+                            case "IP_FORBIDDEN":
+                            case "TOO_MANY_ATTEMPTS":
+                            case "WEEK_PASSWORD_FORBID":
+                            
+                            case "INVALID_ACCOUNT":
+                                
+
+                                $("#error-message").show();
+                                $("#error-message").html(res.message)
+                                return;
+                            
+                            case "CAPTCHA_FAILED":
+                                
+                                layer.open({
+                                    type: 1,
+                                    shade: 0.3,
+                                    title: false,
+                                    shadeClose: true,
+                                    closeBtn: 1,
+                                    scrollbar: false,
+                                    offset: 'auto',
+                                    area: "300px",
+                                    content: $('#drag-captcha-layer'),
+                                    success: initCaptcha
+                                })
+                                return;
+                            
+                            case "NEED_CONFIRM":
+                                layer.confirm('该账号已经登录，继续登录将踢掉其他已登录账号', {
+                                    btn: ['继续', '取消']
+                                }, function () {
+                                    $.ajax({
+                                        url: "/do-confirm-login",
+                                        dataType: 'json',
+                                        type: 'POST',
+                                        success: function (res) {
+                                            if (res.success) {
+                                                layer.msg("登录成功！");
+                                                setTimeout(function () {
+                                                    window.location.href = res.url
+                                                }, 1000);
+                                            } else {
+                                                layer.msg(res.url);
+                                            }
+                                        }
+                                    })
+                                });
+                                return;
+                            case "NEED_TWO_STEP":
+                                $('input[name="disable_phone"]').val(res.phone);
+                                layer.open({
+                                    type: 1,
+                                    shade: 0.3,
+                                    title: false,
+                                    shadeClose: true,
+                                    closeBtn: 1,
+                                    scrollbar: false,
+                                    offset: '350px',
+                                    area: "460px",
+                                    content: $('#second_login_layer')
+                                });
+                                return;
+                            case "WEEK_PASSWORD_CHECK":
+                                layer.open({
+                                    content: res.message,
+                                    btn: ['确认'],
+                                    yes: function () {
+                                        location.href = res.url
+                                    },
+                                    cancel: function(){
+                                        location.href = res.url
+                                        return false;
+                                    }
+                                });
+                                return;
+                            case "INVALID_FAILURETIME":
+                                layer.open({
+                                    content: '您的有效期已经过期，点击“确认”按钮可申请延长有效期。延长有效期需要管理员确认，请耐心等待。',
+                                    
+                                    btn: ['确认'],
+                                    
+                                    yes: function (index, layero) {
+                                        sendExtendValidate()
+                                        layer.close(index)
+                                    },
+                                    
+                                })
+                                return;
+                            default:
+                                layer.alert("未在当前版本实现的功能")
+                        }
+                    }
+                });
+            });
+
+            function sendExtendValidate() {
+                $.post('/extend_failure_time', {}, function(res) {
+                })
+            }
+
+            $('#send-phone-sms').click(function () {
+                var phone = $('input[name="disable_phone"]').val()
+                var auth_type = $(".on").data('type')
+
+                var $that = $(this);
+                if(phone.length != 11){
+                    layer.msg('您的手机号格式不正确,无法获得验证码！');
+                    return
+                }
+                if ($(this).hasClass('disabled')) {
+                    return;
+                }
+                window.clearInterval(intervalId);
+                $.post('/send-sms/', {username: phone, auth_type: auth_type}, function (res) {
+                    if(!res.success){
+                        layer.msg(res.message);
+                        return;
+                    }
+                });
+                sec = 59;
+                $that.html(sec);
+                $(this).addClass('disabled');
+                intervalId = setInterval(function () {
+                    counting = true;
+                    $that.html(sec);
+                    sec -= 1;
+                    if (sec < 0) {
+                        $that.removeClass('disabled');
+                        counting = false;
+                        $that.html('点击发送');
+                    }
+                }, 1000);
+            });
+
+            $('.send-sms').click(function () {
+                var phone = $("#user_name").val()
+                
+                var auth_type = $(".on").data('type')
+                
+
+                var $that = $(this);
+                if(phone.length != 11){
+                    layer.msg('您的手机号格式不正确,无法获得验证码！');
+                    return
+                }
+                if ($(this).hasClass('disabled')) {
+                    return;
+                }
+                window.clearInterval(intervalId);
+                $.post('/send-sms/', {username: phone, auth_type: auth_type}, function (res) {
+                    if(!res.success){
+                        layer.msg(res.message);
+                        return;
+                    }
+                });
+                sec = 59;
+                $that.html(sec);
+                $(this).addClass('disabled');
+                intervalId = setInterval(function () {
+                    counting = true;
+                    $that.html(sec);
+                    sec -= 1;
+                    if (sec < 0) {
+                        $that.removeClass('disabled');
+                        counting = false;
+                        $that.html('点击发送');
+                    }
+                }, 1000);
+            });
+
+            $('#submit_second_login').click(function () {
+                var data = $("#second_login_form").serialize();
+                $.ajax({
+                    url: "/do-second-login",
+                    data: data,
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.success) {
+                            layer.msg("登录成功！");
+                            setTimeout(function () {
+                                window.location.href = res.url;
+                            }, 1000);
+                        } else {
+                            layer.msg(res.message);
+                        }
+                    }
+                })
+            });
+
+            $('#submit_confirm_login').click(function () {
+                var data = $("#confirm_login_form").serialize();
+                $.ajax({
+                    url: "/do-confirm-login",
+                    data: data,
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.success) {
+                            layer.msg("登录成功！");
+                            setTimeout(function () {
+                                window.location.href = res.data
+                            }, 1000);
+                        }
+                    }
+                })
+            });
+
+            var currentCursor = 0;
+
+            $(".login-nav-next").click(function () {
+                if ($(".login-nav-scroll").width() < $(".login-nav-nav").width()) {
+                    currentCursor = $(".login-nav-scroll").width() - $(".login-nav-nav").width();
+                    $(".login-nav-nav").css("transform",  "translateX(" + currentCursor + "px)");
+                    $(".login-nav-nav").css("-ms-transform",  "translateX(" + currentCursor + "px)");
+                    $(".login-nav-nav").css("-moz-transform",  "translateX(" + currentCursor + "px)");
+                    $(".login-nav-nav").css("-webkit-transform",  "translateX(" + currentCursor + "px)");
+                    $(".login-nav-nav").css("-o-transform",  "translateX(" + currentCursor + "px)");
+                }                
+            });
+
+            $(".login-nav-prev").click(function () {
+                currentCursor = 0;
+                $(".login-nav-nav").css("transform",  "translateX(" + currentCursor + "px)");
+                $(".login-nav-nav").css("-ms-transform",  "translateX(" + currentCursor + "px)");
+                $(".login-nav-nav").css("-moz-transform",  "translateX(" + currentCursor + "px)");
+                $(".login-nav-nav").css("-webkit-transform",  "translateX(" + currentCursor + "px)");
+                $(".login-nav-nav").css("-o-transform",  "translateX(" + currentCursor + "px)");
+            });
+
+            
+            
+
+            
+
+            
+            $(".login-nav-item").off("click").on("click", function () {
+            
+                var index = $(this).index();
+                
+                $(this).addClass("on").siblings().removeClass("on");
+                
+                if ($(this).data('type') == 'local') {
+                    $('.password-field').show();
+                    
+                    $("#captcha-wrap").hide();
+                    
+                    $('.sms-field').hide();
+                    $('.el-button-login').show();
+                    $('input[name=auth_type]').val('local');
+                    $('#user_name').parent().removeClass('phone-input');
+                    $('#user_name').parent().removeClass('user-input');
+                    $('#user_name').parent().addClass('user-input');
+                    $('#user_name').attr('placeholder', "账号");
+                    $('.user-input').show();
+                    $('.user-input').parent().show();
+                    $('.remember-field').show();
+                    $('.wechat-qrcode').hide();
+                    $('.dingding-qrcode').hide();
+                    $('#oidc_login').hide();
+                    $('#cas_login').hide();
+                    $('#escience_login').hide();
+                    $('#more_login').hide();
+                    $('#standard_login').hide();
+                } else if ($(this).data('type') == 'auth_sms') {
+                    $('.password-field').hide();
+                    $('.sms-field').show();
+                    $('.el-button-login').show();
+                    $('.sms-wx-field').hide();
+                    $('.user-input').show();
+                    $('.user-input').parent().show();
+                    $('input[name=auth_type]').val('auth_sms');
+                    $('#user_name').parent().removeClass('user-input');
+                    $('#user_name').parent().addClass('phone-input');
+                    $('#user_name').attr('placeholder', "手机号");
+                    $('.phone-input').show();
+                    $('.phone-input').parent().show();
+                    $('.remember-field').hide();
+                    $('.wechat-qrcode').hide();
+                    $('.dingding-qrcode').hide();
+                    $('#oidc_login').hide();
+                    $('#cas_login').hide();
+                    $('#escience_login').hide();
+                    $('#more_login').hide();
+                    $('#standard_login').hide();
+                }
+                
+                
+                
+                else if ($(this).data('type') == 'cas') {
+                    $('.sms-field').hide();
+                    $('.sms-wx-field').hide();
+                    $('.password-field').hide();
+                    $('.user-input').hide();
+                    $('.phone-input').hide();
+                    $('.user-input').parent().show();
+                    $('.phone-input').parent().show();
+                    $('.remember-field').hide();
+                    $('.el-button-login').hide();
+                    $('.wechat-qrcode').hide();
+                    $('.dingding-qrcode').hide();
+                    
+                    
+                    $('#cas_login').show();
+                    
+                    
+                    $('#standard_login').hide();
+                    $('#more_login').hide();
+                }
+                
+                
+                else if ($(this).data('type') == 'more_auth') {
+                    $('.sms-field').hide();
+                    $('.sms-wx-field').hide();
+                    $('.password-field').hide();
+                    $('.user-input').hide();
+                    $('.user-input').parent().show();
+                    $('.phone-input').hide();
+                    $('.phone-input').parent().show();
+                    $('.remember-field').hide();
+                    $('.el-button-login').hide();
+                    $('.wechat-qrcode').hide();
+                    $('.dingding-qrcode').hide();
+                    $('#oidc_login').hide();
+                    $('#cas_login').hide();
+                    $('#escience_login').hide();
+                    $('#standard_login').hide();
+                    $('#more_login').show();
+                } else {
+                    $('.sms-field').show();
+                    $('.sms-wx-field').show();
+                    $('.password-field').hide();
+                    $('input[name=auth_type]').val('auth_wx_sms');
+                    $('#user_name').parent().removeClass('user-input');
+                    $('#user_name').parent().addClass('phone-input');
+                    $('#user_name').attr('placeholder', "手机号");
+                    $('.phone-input').show();
+                    $('.phone-input').parent().show();
+                    $('.el-button-login').show();
+                    $('.remember-field').hide();
+                    $('.wechat-qrcode').hide();
+                    $('.dingding-qrcode').hide();
+                    $('#oidc_login').hide();
+                    $('#cas_login').hide();
+                    $('#escience_login').hide();
+                    $('#standard_login').hide();
+                    $('#more_login').hide();
+                }
+            });
+            
+
+            
+            $(".login-nav-item").first().click();
+            
+
+            $('#help_mark').hover(function () {
+                var display_width = getWidth() / 2 + 50;
+                var display_height = getHeight() / 2;
+                if (display_width <= 416) {
+                    var offset = 'auto';
+                } else {
+                    var offset = [display_height + 'px', display_width + 'px'];
+                }
+                layer.open({
+                    type: 1,
+                    shade: 0,
+                    title: false,
+                    shadeClose: true,
+                    closeBtn: 0,
+                    offset: offset,
+                    area: ['320px'],
+                    content: $('#wechat_tip')
+                });
+
+            }, function () {
+                layer.closeAll();
+            });
+
+        });
+
+        
+        function getWidth() {
+            if (window.innerWidth) {
+                winWidth = window.innerWidth;
+            } else if ((document.body) && (document.body.clientWidth)) {
+                winWidth = document.body.clientWidth;
+            }
+            if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+                winWidth = document.documentElement.clientWidth;
+            }
+            return winWidth;
+        }
+
+        
+        function getHeight() {
+            if (window.innerHeight) {
+                winHeight = window.innerHeight;
+            } else if ((document.body) && (document.body.clientHeight)) {
+                winHeight = document.body.clientHeight;
+            }
+            if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+                winHeight = document.documentElement.clientHeight;
+            }
+            return winHeight;
+        }
+    </script>
+    
+
+    
+
+</body>
+</html>

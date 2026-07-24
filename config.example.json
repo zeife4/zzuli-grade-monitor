@@ -1,0 +1,27 @@
+{
+    "webvpn_base": "https://webvpn.zzuli.edu.cn",
+
+    "grade_page_vpn_url": "https://webvpn.zzuli.edu.cn/http/77726476706e69737468656265737421fae04690692a72457201c7a99c406d36ed/student/xscj.stuckcj_data.jsp",
+
+    "grade_page_method": "GET",
+    "grade_page_params": {},
+
+    "check_interval_seconds": 300,
+    "max_retry_on_failure": 3,
+
+    "notify": {
+        "desktop": true,
+        "sound": true,
+        "wechat": {
+            "enabled": false,
+            "sendkey": "这里填你的 Server酱 SendKey (https://sct.ftqq.com/)"
+        }
+    },
+
+    "parse": {
+        "table_selector": "table",
+        "row_selector": "tr",
+        "columns": ["序号", "课程名称", "学分", "总学时", "类别", "修读性质", "考核方式", "平时成绩", "期末成绩", "成绩", "备注"],
+        "col_index": [0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 13]
+    }
+}

@@ -1,0 +1,24 @@
+# 敏感个人信息
+cookies.json
+config.json
+grade_snapshot.json
+grade_history.log
+monitor.log
+
+# 成绩变化记录
+change_*.txt
+
+# 成绩报告
+成绩报告_*.md
+
+# 调试文件
+debug_*.html
+debug_*.png
+
+# Python
+__pycache__/
+*.pyc
+
+# 系统
+.DS_Store
+Thumbs.db
